@@ -1,5 +1,5 @@
 export const aboutMe = {
-  name: 'Dani',
+  name: 'Daniel Benito',
   profession: 'Technical Art',
   description: 'Focused on developing procedural tools and technical workflows for games, leveraging Houdini, Unreal Engine, and Python to create efficient and scalable content pipelines.',
   bio: {
@@ -24,7 +24,7 @@ export const aboutMe = {
     phone: '+654489670',
   }, 
   socialMedia: {
-    linkedin: 'https://www.linkedin.com/in/daniel-benito-izquierdo/?skipRedirect=true',
+    linkedin: 'https://github.com/elstron',
     //github: 'https://github.com/elstron',
     //youtube: 'https://www.youtube.com/@Stron_',
     //x: 'https://x.com/Stron__',
