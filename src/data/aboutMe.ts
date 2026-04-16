@@ -1,15 +1,16 @@
 export const aboutMe = {
-  name: 'Soy Stron',
-  profession: 'Software Developer',
-  description: 'Passionate about building web applications and learning new technologies.',
+  name: 'Dani',
+  profession: 'Technical Art',
+  description: 'Focused on developing procedural tools and technical workflows for games, leveraging Houdini, Unreal Engine, and Python to create efficient and scalable content pipelines.',
   bio: {
     paragraphs: [
-      "I'm a passionate software developer with over 5 years of experience in building web applications. I specialize in JavaScript and have a strong background in both frontend and backend development.",
-      "I enjoy working on challenging projects and continuously learning new technologies. In my free time, I love traveling, cooking, and gaming.",
-    ]
+      "I'm a Technical Artist focused on procedural content creation and tool development for real-time environments. I specialize in Houdini and Unreal Engine, with a growing focus on building efficient workflows and systems using Python.",
+    
+      "I enjoy solving technical challenges and creating scalable tools that improve production pipelines. Currently, I'm developing procedural systems and expanding my knowledge in game development workflows."
+  ]
   },
-  skills: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'Python'],
-  hobbies: ['Traveling', 'Cooking', 'Gaming'],
+  skills: ['Houdini', 'Unreal Engine', 'Python', 'Procedural Modeling', 'Technical Art'],
+  hobbies: ['Traveling', 'Sport', 'Gaming'],
   profile: {
     picture: '/profile.jpg',
     altText: "John Doe's Profile Picture",
@@ -19,15 +20,15 @@ export const aboutMe = {
     altText: 'Technology Banner',
   },
   contact: {
-    email: 'JohnDoe@example.com',
-    phone: '+1234567890',
+    email: 'dandav0317@gmail.com',
+    phone: '+654489670',
   }, 
   socialMedia: {
-    linkedin: 'https://github.com/elstron',
-    github: 'https://github.com/elstron',
-    youtube: 'https://www.youtube.com/@Stron_',
-    x: 'https://x.com/Stron__',
-    website: 'https://github.com/elstron'
+    linkedin: 'https://www.linkedin.com/in/daniel-benito-izquierdo/?skipRedirect=true',
+    //github: 'https://github.com/elstron',
+    //youtube: 'https://www.youtube.com/@Stron_',
+    //x: 'https://x.com/Stron__',
+    //website: 'https://github.com/elstron'
     //facebook: 'https://www.facebook.com/JohnDoe',
     //instagram: 'https://www.instagram.com/JohnDoe',
   }
