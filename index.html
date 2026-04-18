@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Benito — Technical Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0e;
+      --bg2: #111115;
+      --bg3: #18181f;
+      --amber: #e8920a;
+      --amber-dim: #bf7508;
+      --amber-faint: rgba(232,146,10,0.08);
+      --amber-faint2: rgba(232,146,10,0.15);
+      --text: #e8e6df;
+      --muted: #7a7870;
+      --border: rgba(255,255,255,0.07);
+      --border-amber: rgba(232,146,10,0.3);
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(12,12,14,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--amber);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute; z-index: 0;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,146,10,0.12) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--amber);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--amber);
+    }
+    h1.hero-name {
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .hero-title {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 500;
+      color: var(--amber);
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-desc strong { color: var(--text); font-weight: 600; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--amber);
+      color: #0c0c0e;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #f5a020; transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border-amber);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-1px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: var(--border);
+      max-width: 200px;
+    }
+    h2.section-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+    .about-text p strong { color: var(--text); }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .stat {
+      background: var(--bg3);
+      padding: 2rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .stat:hover { background: var(--amber-faint); }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .skill-card {
+      background: var(--bg2);
+      padding: 2rem;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--amber);
+      transition: height 0.3s ease;
+    }
+    .skill-card:hover { background: var(--amber-faint); }
+    .skill-card:hover::before { height: 100%; }
+    .skill-icon {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--amber);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .skill-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .skill-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .skill-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1rem; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--amber-dim);
+      background: var(--amber-faint2);
+      border: 1px solid var(--border-amber);
+      padding: 0.2rem 0.6rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg2); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      border-color: var(--border-amber);
+      transform: translateY(-3px);
+    }
+    .project-img {
+      width: 100%; height: 200px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(40%) brightness(0.85);
+      transition: filter 0.3s;
+    }
+    .project-card:hover .project-img {
+      filter: grayscale(0%) brightness(1);
+    }
+    .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .project-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--amber);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+    .project-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.7rem; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--bg);
+      text-align: center;
+    }
+    .contact-inner { max-width: 640px; margin: 0 auto; }
+    #contact h2 { margin-bottom: 1rem; }
+    #contact p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 2rem; }
+      #hero { padding: 7rem 2rem 4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-cta { flex-direction: column; }
+      .btn-primary, .btn-outline { text-align: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">DB/</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Technical Artist &amp; Tool Developer</div>
+      <h1 class="hero-name">Daniel<br>Benito</h1>
+      <div class="hero-title">Procedural Systems · Houdini · Unreal Engine</div>
+      <p class="hero-desc">
+        Building <strong>scalable procedural workflows</strong> and technical tools for real-time game environments. 
+        I bridge the gap between art and engineering — turning complex production challenges into elegant, 
+        <strong>reusable pipeline solutions</strong>.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Projects →</a>
+        <a href="mailto:dandav0317@gmail.com" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">01 — About Me</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="section-title">Where art meets<br>engineering</h2>
+        <p>
+          I'm a <strong>Technical Artist</strong> focused on procedural content creation and tool development 
+          for real-time environments. My work lives at the intersection of creativity and systems thinking — 
+          designing tools that give artists more power while keeping production efficient.
+        </p>
+        <p>
+          My core toolkit is <strong>Houdini</strong> for procedural generation and <strong>Unreal Engine</strong> 
+          for real-time implementation, with <strong>Python</strong> as the glue that ties custom pipelines together. 
+          I enjoy solving deep technical challenges that have a visible, immediate impact on what ends up on screen.
+        </p>
+        <p>
+          Currently focused on developing procedural systems and expanding my knowledge in game development 
+          workflows — always looking for ways to make complex processes feel effortless.
+        </p>
+      </div>
+      <div>
+        <div class="about-stats fade-in">
+          <div class="stat">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">HDAs</div>
+            <div class="stat-label">Custom Houdini Assets</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">UE5</div>
+            <div class="stat-label">Unreal Engine 5</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">Py</div>
+            <div class="stat-label">Pipeline Scripting</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">02 — Skills &amp; Tools</div>
+    <h2 class="section-title" style="margin-bottom: 3rem;">Technical toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-icon">// DCC</div>
+        <div class="skill-name">Houdini</div>
+        <div class="skill-desc">Procedural geometry, VEX scripting, and HDA development for scalable asset creation and simulation pipelines.</div>
+        <div class="skill-tags">
+          <span class="tag">VEX</span><span class="tag">HDAs</span><span class="tag">SOPs</span><span class="tag">PDG</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">// Engine</div>
+        <div class="skill-name">Unreal Engine 5</div>
+        <div class="skill-desc">Real-time integration of procedural assets, Blueprints, and performance optimization for game-ready environments.</div>
+        <div class="skill-tags">
+          <span class="tag">Blueprints</span><span class="tag">Nanite</span><span class="tag">Lumen</span><span class="tag">PCG</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">// Scripting</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-desc">Custom tool development, pipeline automation, and DCC scripting to streamline artist workflows and reduce repetitive tasks.</div>
+        <div class="skill-tags">
+          <span class="tag">Pipeline</span><span class="tag">Automation</span><span class="tag">APIs</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">// Shading</div>
+        <div class="skill-name">Materials &amp; Shaders</div>
+        <div class="skill-desc">PBR material creation, shader graph development, and technical shading for real-time environments.</div>
+        <div class="skill-tags">
+          <span class="tag">HLSL</span><span class="tag">PBR</span><span class="tag">Substance</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">// Systems</div>
+        <div class="skill-name">Procedural Pipelines</div>
+        <div class="skill-desc">End-to-end pipeline design connecting DCC tools to game engines with automated asset conditioning and export.</div>
+        <div class="skill-tags">
+          <span class="tag">LODs</span><span class="tag">Export</span><span class="tag">Batch</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">// Control</div>
+        <div class="skill-name">Version Control</div>
+        <div class="skill-desc">Git-based workflows for code and binary assets, Perforce integration for large game project collaboration.</div>
+        <div class="skill-tags">
+          <span class="tag">Git</span><span class="tag">Perforce</span><span class="tag">P4V</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">03 — Projects</div>
+    <h2 class="section-title" style="margin-bottom: 3rem;">Selected work</h2>
+    <div class="projects-grid">
+      <div class="project-card fade-in">
+        <img class="project-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Procedural terrain generation" />
+        <div class="project-body">
+          <div class="project-num">PROJECT // 001</div>
+          <div class="project-name">Procedural Terrain Generator</div>
+          <div class="project-desc">A Houdini-based terrain generation system with full UE5 integration. Allows artists to create varied, game-ready landscapes using parametric controls — no manual sculpting required.</div>
+          <div class="skill-tags" style="margin-bottom: 1rem;">
+            <span class="tag">Houdini</span><span class="tag">UE5</span><span class="tag">HDA</span>
+          </div>
+          <a href="#" class="project-link">View project →</a>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <img class="project-img" src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=700&q=80" alt="Pipeline automation tool" />
+        <div class="project-body">
+          <div class="project-num">PROJECT // 002</div>
+          <div class="project-name">Asset Pipeline Automation</div>
+          <div class="project-desc">Python toolset that automates the conditioning, LOD generation, and export of 3D assets from Houdini to Unreal Engine, cutting asset prep time significantly.</div>
+          <div class="skill-tags" style="margin-bottom: 1rem;">
+            <span class="tag">Python</span><span class="tag">Houdini</span><span class="tag">Pipeline</span>
+          </div>
+          <a href="#" class="project-link">View project →</a>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <img class="project-img" src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=700&q=80" alt="Procedural building generation" />
+        <div class="project-body">
+          <div class="project-num">PROJECT // 003</div>
+          <div class="project-name">Modular Building System</div>
+          <div class="project-desc">Procedural architecture toolset built in Houdini and exposed via UE5's PCG framework. Generates varied building structures from a compact set of modular pieces and rules.</div>
+          <div class="skill-tags" style="margin-bottom: 1rem;">
+            <span class="tag">PCG</span><span class="tag">UE5</span><span class="tag">VEX</span>
+          </div>
+          <a href="#" class="project-link">View project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label" style="justify-content: center;">04 — Contact</div>
+      <h2 class="section-title">Let's build something<br>together</h2>
+      <p>Open to freelance projects, full-time roles, and interesting collaborations in game development and real-time pipelines.</p>
+      <div class="contact-links">
+        <a href="mailto:dandav0317@gmail.com" class="btn-primary">Send Email →</a>
+        <a href="https://github.com/elstron" target="_blank" rel="noopener" class="btn-outline">GitHub</a>
+        <a href="https://www.linkedin.com/in/danielbeniito/" target="_blank" rel="noopener" class="btn-outline">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Daniel Benito — Technical Artist</p>
+    <p>Built with precision. No frameworks.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
